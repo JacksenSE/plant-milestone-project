@@ -1,11 +1,16 @@
 const express = require('express')
 const app = express()
 require('dotenv').config()
+const path = require('path');
 const PORT = process.env.PORT
 
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
+app.use(express.static(path.join(__dirname, '/build')));
 app.get('/', (req, res) => {
-  res.send('Hello, world!')
+    res.sendFile(path.join(__dirname, '/build', 'index.html'));
 })
+
 
 app.listen(PORT, () => console.log(`Server is running in port ${PORT}`))
 
